@@ -1,0 +1,151 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux4Way16.hdl
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel = 00
+ *       b if sel = 01
+ *       c if sel = 10
+ *       d if sel = 11
+ */
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+    
+    PARTS:
+    Not(in= sel[0], out= ns0);
+    Not(in= sel[1], out= ns1);
+    And(a= ns0, b= ns1, out= ns0ns1);
+    And(a= sel[0], b= ns1, out= s0ns1);
+    And(a= ns0, b= sel[1], out= ns0s1);
+    And(a= sel[0], b= sel[1], out= s0s1);
+
+    And(a= a[0], b= ns0ns1, out= a0ns0ns1);
+    And(a= b[0], b= s0ns1, out= b0s0ns1);
+    And(a= c[0], b= ns0s1, out= c0ns0s1);
+    And(a= d[0], b= s0s1, out= d0s0s1);
+    Or(a= a0ns0ns1, b= b0s0ns1, out= a0ns0ns1ORb0s0ns1);
+    Or(a= a0ns0ns1ORb0s0ns1, b= c0ns0s1, out= a0ns0ns1ORb0s0ns1ORc0ns0s1);
+    Or(a= a0ns0ns1ORb0s0ns1ORc0ns0s1, b= d0s0s1, out= out[0]);
+
+    And(a= a[1], b= ns0ns1, out= a1ns0ns1);
+    And(a= b[1], b= s0ns1, out= b1s0ns1);
+    And(a= c[1], b= ns0s1, out= c1ns0s1);
+    And(a= d[1], b= s0s1, out= d1s0s1);
+    Or(a= a1ns0ns1, b= b1s0ns1, out= a1ns0ns1ORb1s0ns1);
+    Or(a= a1ns0ns1ORb1s0ns1, b= c1ns0s1, out= a1ns0ns1ORb1s0ns1ORc1ns0s1);
+    Or(a= a1ns0ns1ORb1s0ns1ORc1ns0s1, b= d1s0s1, out= out[1]);
+
+    And(a= a[2], b= ns0ns1, out= a2ns0ns1);
+    And(a= b[2], b= s0ns1, out= b2s0ns1);
+    And(a= c[2], b= ns0s1, out= c2ns0s1);
+    And(a= d[2], b= s0s1, out= d2s0s1);
+    Or(a= a2ns0ns1, b= b2s0ns1, out= a2ns0ns1ORb2s0ns1);
+    Or(a= a2ns0ns1ORb2s0ns1, b= c2ns0s1, out= a2ns0ns1ORb2s0ns1ORc2ns0s1);
+    Or(a= a2ns0ns1ORb2s0ns1ORc2ns0s1, b= d2s0s1, out= out[2]);
+
+    And(a= a[3], b= ns0ns1, out= a3ns0ns1);
+    And(a= b[3], b= s0ns1, out= b3s0ns1);
+    And(a= c[3], b= ns0s1, out= c3ns0s1);
+    And(a= d[3], b= s0s1, out= d3s0s1);
+    Or(a= a3ns0ns1, b= b3s0ns1, out= a3ns0ns1ORb3s0ns1);
+    Or(a= a3ns0ns1ORb3s0ns1, b= c3ns0s1, out= a3ns0ns1ORb3s0ns1ORc3ns0s1);
+    Or(a= a3ns0ns1ORb3s0ns1ORc3ns0s1, b= d3s0s1, out= out[3]);
+
+    And(a= a[4], b= ns0ns1, out= a4ns0ns1);
+    And(a= b[4], b= s0ns1, out= b4s0ns1);
+    And(a= c[4], b= ns0s1, out= c4ns0s1);
+    And(a= d[4], b= s0s1, out= d4s0s1);
+    Or(a= a4ns0ns1, b= b4s0ns1, out= a4ns0ns1ORb4s0ns1);
+    Or(a= a4ns0ns1ORb4s0ns1, b= c4ns0s1, out= a4ns0ns1ORb4s0ns1ORc4ns0s1);
+    Or(a= a4ns0ns1ORb4s0ns1ORc4ns0s1, b= d4s0s1, out= out[4]);
+
+    And(a= a[5], b= ns0ns1, out= a5ns0ns1);
+    And(a= b[5], b= s0ns1, out= b5s0ns1);
+    And(a= c[5], b= ns0s1, out= c5ns0s1);
+    And(a= d[5], b= s0s1, out= d5s0s1);
+    Or(a= a5ns0ns1, b= b5s0ns1, out= a5ns0ns1ORb5s0ns1);
+    Or(a= a5ns0ns1ORb5s0ns1, b= c5ns0s1, out= a5ns0ns1ORb5s0ns1ORc5ns0s1);
+    Or(a= a5ns0ns1ORb5s0ns1ORc5ns0s1, b= d5s0s1, out= out[5]);
+
+    And(a= a[6], b= ns0ns1, out= a6ns0ns1);
+    And(a= b[6], b= s0ns1, out= b6s0ns1);
+    And(a= c[6], b= ns0s1, out= c6ns0s1);
+    And(a= d[6], b= s0s1, out= d6s0s1);
+    Or(a= a6ns0ns1, b= b6s0ns1, out= a6ns0ns1ORb6s0ns1);
+    Or(a= a6ns0ns1ORb6s0ns1, b= c6ns0s1, out= a6ns0ns1ORb6s0ns1ORc6ns0s1);
+    Or(a= a6ns0ns1ORb6s0ns1ORc6ns0s1, b= d6s0s1, out= out[6]);
+
+    And(a= a[7], b= ns0ns1, out= a7ns0ns1);
+    And(a= b[7], b= s0ns1, out= b7s0ns1);
+    And(a= c[7], b= ns0s1, out= c7ns0s1);
+    And(a= d[7], b= s0s1, out= d7s0s1);
+    Or(a= a7ns0ns1, b= b7s0ns1, out= a7ns0ns1ORb7s0ns1);
+    Or(a= a7ns0ns1ORb7s0ns1, b= c7ns0s1, out= a7ns0ns1ORb7s0ns1ORc7ns0s1);
+    Or(a= a7ns0ns1ORb7s0ns1ORc7ns0s1, b= d7s0s1, out= out[7]);
+
+    And(a= a[8], b= ns0ns1, out= a8ns0ns1);
+    And(a= b[8], b= s0ns1, out= b8s0ns1);
+    And(a= c[8], b= ns0s1, out= c8ns0s1);
+    And(a= d[8], b= s0s1, out= d8s0s1);
+    Or(a= a8ns0ns1, b= b8s0ns1, out= a8ns0ns1ORb8s0ns1);
+    Or(a= a8ns0ns1ORb8s0ns1, b= c8ns0s1, out= a8ns0ns1ORb8s0ns1ORc8ns0s1);
+    Or(a= a8ns0ns1ORb8s0ns1ORc8ns0s1, b= d8s0s1, out= out[8]);
+
+    And(a= a[9], b= ns0ns1, out= a9ns0ns1);
+    And(a= b[9], b= s0ns1, out= b9s0ns1);
+    And(a= c[9], b= ns0s1, out= c9ns0s1);
+    And(a= d[9], b= s0s1, out= d9s0s1);
+    Or(a= a9ns0ns1, b= b9s0ns1, out= a9ns0ns1ORb9s0ns1);
+    Or(a= a9ns0ns1ORb9s0ns1, b= c9ns0s1, out= a9ns0ns1ORb9s0ns1ORc9ns0s1);
+    Or(a= a9ns0ns1ORb9s0ns1ORc9ns0s1, b= d9s0s1, out= out[9]);
+
+    And(a= a[10], b= ns0ns1, out= a10ns0ns1);
+    And(a= b[10], b= s0ns1, out= b10s0ns1);
+    And(a= c[10], b= ns0s1, out= c10ns0s1);
+    And(a= d[10], b= s0s1, out= d10s0s1);
+    Or(a= a10ns0ns1, b= b10s0ns1, out= a10ns0ns1ORb10s0ns1);
+    Or(a= a10ns0ns1ORb10s0ns1, b= c10ns0s1, out= a10ns0ns1ORb10s0ns1ORc10ns0s1);
+    Or(a= a10ns0ns1ORb10s0ns1ORc10ns0s1, b= d10s0s1, out= out[10]);
+
+    And(a= a[11], b= ns0ns1, out= a11ns0ns1);
+    And(a= b[11], b= s0ns1, out= b11s0ns1);
+    And(a= c[11], b= ns0s1, out= c11ns0s1);
+    And(a= d[11], b= s0s1, out= d11s0s1);
+    Or(a= a11ns0ns1, b= b11s0ns1, out= a11ns0ns1ORb11s0ns1);
+    Or(a= a11ns0ns1ORb11s0ns1, b= c11ns0s1, out= a11ns0ns1ORb11s0ns1ORc11ns0s1);
+    Or(a= a11ns0ns1ORb11s0ns1ORc11ns0s1, b= d11s0s1, out= out[11]);
+
+    And(a= a[12], b= ns0ns1, out= a12ns0ns1);
+    And(a= b[12], b= s0ns1, out= b12s0ns1);
+    And(a= c[12], b= ns0s1, out= c12ns0s1);
+    And(a= d[12], b= s0s1, out= d12s0s1);
+    Or(a= a12ns0ns1, b= b12s0ns1, out= a12ns0ns1ORb12s0ns1);
+    Or(a= a12ns0ns1ORb12s0ns1, b= c12ns0s1, out= a12ns0ns1ORb12s0ns1ORc12ns0s1);
+    Or(a= a12ns0ns1ORb12s0ns1ORc12ns0s1, b= d12s0s1, out= out[12]);
+
+    And(a= a[13], b= ns0ns1, out= a13ns0ns1);
+    And(a= b[13], b= s0ns1, out= b13s0ns1);
+    And(a= c[13], b= ns0s1, out= c13ns0s1);
+    And(a= d[13], b= s0s1, out= d13s0s1);
+    Or(a= a13ns0ns1, b= b13s0ns1, out= a13ns0ns1ORb13s0ns1);
+    Or(a= a13ns0ns1ORb13s0ns1, b= c13ns0s1, out= a13ns0ns1ORb13s0ns1ORc13ns0s1);
+    Or(a= a13ns0ns1ORb13s0ns1ORc13ns0s1, b= d13s0s1, out= out[13]);
+
+    And(a= a[14], b= ns0ns1, out= a14ns0ns1);
+    And(a= b[14], b= s0ns1, out= b14s0ns1);
+    And(a= c[14], b= ns0s1, out= c14ns0s1);
+    And(a= d[14], b= s0s1, out= d14s0s1);
+    Or(a= a14ns0ns1, b= b14s0ns1, out= a14ns0ns1ORb14s0ns1);
+    Or(a= a14ns0ns1ORb14s0ns1, b= c14ns0s1, out= a14ns0ns1ORb14s0ns1ORc14ns0s1);
+    Or(a= a14ns0ns1ORb14s0ns1ORc14ns0s1, b= d14s0s1, out= out[14]);
+
+    And(a= a[15], b= ns0ns1, out= a15ns0ns1);
+    And(a= b[15], b= s0ns1, out= b15s0ns1);
+    And(a= c[15], b= ns0s1, out= c15ns0s1);
+    And(a= d[15], b= s0s1, out= d15s0s1);
+    Or(a= a15ns0ns1, b= b15s0ns1, out= a15ns0ns1ORb15s0ns1);
+    Or(a= a15ns0ns1ORb15s0ns1, b= c15ns0s1, out= a15ns0ns1ORb15s0ns1ORc15ns0s1);
+    Or(a= a15ns0ns1ORb15s0ns1ORc15ns0s1, b= d15s0s1, out= out[15]);
+}
